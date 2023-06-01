@@ -28,6 +28,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Salary? salary;
   double salaryValue = 800;
+  double mealCardValue = 7.63;
+  String? mealCardOption;
+
+  List<DropdownMenuItem<String>> cardMealOptions = [
+    DropdownMenuItem(child: Text("Yes"), value: "Yes"),
+    DropdownMenuItem(child: Text("No"), value: "No")
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body:Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
@@ -79,6 +87,38 @@ class _MyHomePageState extends State<MyHomePage> {
               onChanged: (double value){
                 setState(() {
                   salaryValue = value;
+                });
+              }),
+          DropdownButtonFormField(
+            decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(10.0),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                isDense: true),
+            iconSize: 10,
+            //padding: EdgeInsets.all(10),
+            //borderRadius: BorderRadius.circular(5.0),
+            hint:Text("Meal Card"),
+            value: mealCardOption,
+            items: cardMealOptions,
+            onChanged: (value){
+              setState(() {
+                mealCardOption = value;
+              });
+            },
+          ),
+          Slider(
+              value: mealCardValue,
+              min: 5,
+              max: 10,
+              divisions: 100,
+              thumbColor: Colors.white,
+              activeColor: bottomContainerColor,
+              label: mealCardValue.toString(),
+              onChanged: (double value){
+                setState(() {
+                  mealCardValue = value;
                 });
               }),
           SizedBox(
