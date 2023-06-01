@@ -4,7 +4,6 @@ import 'package:salary/pages/meal_page/meal_page.dart';
 
 import '../../cards/card.dart';
 import '../../cards/card_content.dart';
-import '../fiscal_page/fiscal_page.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
