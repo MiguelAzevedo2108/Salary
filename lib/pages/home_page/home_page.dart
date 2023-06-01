@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salary/pages/second_page/second_page.dart';
+import 'package:salary/pages/meal_page/meal_page.dart';
 
 import '../../cards/card.dart';
 import '../../cards/card_content.dart';
+import '../fiscal_page/fiscal_page.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
@@ -28,14 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Salary? salary;
   double salaryValue = 800;
-  double mealCardValue = 7.63;
-  String? mealCardOption;
-
-  List<DropdownMenuItem<String>> cardMealOptions = [
-    DropdownMenuItem(child: Text("Yes"), value: "Yes"),
-    DropdownMenuItem(child: Text("No"), value: "No")
-  ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,38 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   salaryValue = value;
                 });
               }),
-          DropdownButtonFormField(
-            decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10.0),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                isDense: true),
-            iconSize: 10,
-            //padding: EdgeInsets.all(10),
-            //borderRadius: BorderRadius.circular(5.0),
-            hint:Text("Meal Card"),
-            value: mealCardOption,
-            items: cardMealOptions,
-            onChanged: (value){
-              setState(() {
-                mealCardOption = value;
-              });
-            },
-          ),
-          Slider(
-              value: mealCardValue,
-              min: 5,
-              max: 10,
-              divisions: 100,
-              thumbColor: Colors.white,
-              activeColor: bottomContainerColor,
-              label: mealCardValue.toString(),
-              onChanged: (double value){
-                setState(() {
-                  mealCardValue = value;
-                });
-              }),
           SizedBox(
               width: 400,
               height: bottomContainerHeight,
@@ -130,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) {
-                            return SecondPage();
+                            return const MealPage();
                           }
                       ),
                   );

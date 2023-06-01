@@ -10,14 +10,14 @@ enum Fiscal{
   CONTINENTE
 }
 
-class SecondPage extends StatefulWidget{
-  const SecondPage({super.key});
+class FiscalPage extends StatefulWidget{
+  const FiscalPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _SecondPageState();
+  State<StatefulWidget> createState() => _FiscalPageState();
 }
 
-class _SecondPageState extends State<SecondPage> {
+class _FiscalPageState extends State<FiscalPage> {
 
   Fiscal? fiscal;
 
@@ -76,12 +76,13 @@ class _SecondPageState extends State<SecondPage> {
                     },
                   ),
                 );*/
-                Navigator.pop(context);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const MyHomePage(title: "salar")));
               },
-              style: ButtonStyle(
+              style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(bottomContainerColor),
               ),
-              child: Text(
+              child: const Text(
                 "Next",
                 style: TextStyle(
                   fontSize: 30.0,
