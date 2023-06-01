@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:salary/pages/second_page/second_page.dart';
 
-import 'card.dart';
-import 'card_content.dart';
+import '../../cards/card.dart';
+import '../../cards/card_content.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
@@ -15,9 +16,9 @@ enum Salary{
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
   final String title;
+
+  const MyHomePage({super.key, required this.title});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -26,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   Salary? salary;
+  double salaryValue = 800;
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +68,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+          Slider(
+              value: salaryValue,
+              min: 500,
+              max: 6000,
+              divisions: 5500,
+              thumbColor: Colors.white,
+              activeColor: bottomContainerColor,
+              label: salaryValue.round().toString(),
+              onChanged: (double value){
+                setState(() {
+                  salaryValue = value;
+                });
+              }),
           SizedBox(
               width: 400,
               height: bottomContainerHeight,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) {
+                            return SecondPage();
+                          }
+                      ),
+                  );
+                },
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll<Color>(bottomContainerColor),
                 ),
