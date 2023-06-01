@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salary/pages/second_page/second_page.dart';
+import 'package:salary/pages/meal_page/meal_page.dart';
 
 import '../../cards/card.dart';
 import '../../cards/card_content.dart';
+import '../fiscal_page/fiscal_page.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body:Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
@@ -90,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) {
-                            return SecondPage();
+                            return const MealPage();
                           }
                       ),
                   );
