@@ -85,6 +85,7 @@ Map<int, double> continenteTable = {
 };
 
 double findNearestTax(Map<int, double> irsTable, int salary) {
+num? findNearestTax(Map<int, double> irsTable, int salary) {
   if (irsTable.containsKey(salary)){
     return irsTable[salary]! / 100;
   }
@@ -124,6 +125,7 @@ class _FiscalPageState extends State<FiscalPage> {
                         fiscal = Fiscal.AZORES;
                         salary.fiscal = Fiscal.AZORES;
                         salary.taxPercentage = findNearestTax(azoresTable, 26016);
+
                       });
                     },
                     color: fiscal == Fiscal.AZORES
