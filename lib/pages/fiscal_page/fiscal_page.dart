@@ -99,7 +99,7 @@ double findNearestTax(Map<int, double> irsTable, int salary) {
 }
 
 class FiscalPage extends StatefulWidget{
-  const FiscalPage(Salary salary, {super.key});
+  const FiscalPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _FiscalPageState();

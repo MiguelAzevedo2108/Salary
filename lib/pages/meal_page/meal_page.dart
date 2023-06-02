@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salary/cards/card.dart';
 import 'package:salary/cards/card_content.dart';
 import 'package:salary/cards/yes_no_card.dart';
-import 'package:salary/entities/salary.dart';
 
 import '../fiscal_page/fiscal_page.dart';
 import '../home_page/home_page.dart';
@@ -14,7 +13,7 @@ enum MealCardOption{
 }
 
 class MealPage extends StatefulWidget {
-  const MealPage(Salary salary, {super.key});
+  const MealPage({super.key});
 
   @override
   State<MealPage> createState() => _MealPageState();
@@ -117,7 +116,7 @@ class _MealPageState extends State<MealPage> {
               onPressed: () {
                 if (salary.hasMealCard != null) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => FiscalPage(salary)));
+                      builder: (context) => FiscalPage()));
                 }
               },
               style: const ButtonStyle(
