@@ -85,7 +85,6 @@ Map<int, double> continenteTable = {
 };
 
 double findNearestTax(Map<int, double> irsTable, int salary) {
-num? findNearestTax(Map<int, double> irsTable, int salary) {
   if (irsTable.containsKey(salary)){
     return irsTable[salary]! / 100;
   }
