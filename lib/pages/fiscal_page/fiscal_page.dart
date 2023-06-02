@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salary/cards/card.dart';
 import 'package:salary/cards/card_content.dart';
+import 'package:salary/entities/salary.dart';
 
 import '../home_page/home_page.dart';
 
@@ -83,6 +84,7 @@ Map<int, double> continenteTable = {
   26015: 43.80
 };
 
+double findNearestTax(Map<int, double> irsTable, int salary) {
 num? findNearestTax(Map<int, double> irsTable, int salary) {
   if (irsTable.containsKey(salary)){
     return irsTable[salary]! / 100;
@@ -121,7 +123,9 @@ class _FiscalPageState extends State<FiscalPage> {
                     onPress: () {
                       setState(() {
                         fiscal = Fiscal.AZORES;
-                        findNearestTax(azoresTable, 26016);
+                        salary.fiscal = Fiscal.AZORES;
+                        salary.taxPercentage = findNearestTax(azoresTable, 26016);
+
                       });
                     },
                     color: fiscal == Fiscal.AZORES
@@ -138,7 +142,8 @@ class _FiscalPageState extends State<FiscalPage> {
                   onPress: () {
                     setState(() {
                       fiscal = Fiscal.CONTINENTE;
-                      findNearestTax(continenteTable, 26016);
+                      salary.fiscal = Fiscal.CONTINENTE;
+                      salary.taxPercentage = findNearestTax(continenteTable, 26016);
                     });
                   },
                   color: fiscal == Fiscal.CONTINENTE
@@ -157,16 +162,9 @@ class _FiscalPageState extends State<FiscalPage> {
             height: bottomContainerHeight,
             child: ElevatedButton(
               onPressed: () {
-                /*Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                        builder: (context){
-                       return const MyHomePage(title: "Salary");
-                    },
-                  ),
-                );*/
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const MyHomePage(title: "salar")));
+                //printSalary();
+                /*Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MyHomePage(title: "salar")));*/
               },
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(bottomContainerColor),
@@ -186,4 +184,12 @@ class _FiscalPageState extends State<FiscalPage> {
     );
   }
 
+  void printSalary(){
+    print("Salary - ${salary.salaryAmount}\n"
+        "Net - ${salary.isNet}\n"
+        "Gross - ${salary.isGross}\n"
+        "MealCard - ${salary.hasMealCard}\n"
+        "MealAllowence - ${salary.mealAmount}\n"
+        "Tax percentage - ${salary.taxPercentage}");
+  }
 }

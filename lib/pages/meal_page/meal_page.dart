@@ -7,6 +7,11 @@ import 'package:salary/cards/yes_no_card.dart';
 import '../fiscal_page/fiscal_page.dart';
 import '../home_page/home_page.dart';
 
+enum MealCardOption{
+  Yes,
+  No
+}
+
 class MealPage extends StatefulWidget {
   const MealPage({super.key});
 
@@ -15,15 +20,15 @@ class MealPage extends StatefulWidget {
 }
 
 class _MealPageState extends State<MealPage> {
+
   double mealCardValue = 7.63;
   String? mealCardOption;
+  MealCardOption? yesNoOption;
 
   List<DropdownMenuItem<String>> cardMealOptions = [
     const DropdownMenuItem(value: "Yes", child: Text("Yes")),
     const DropdownMenuItem(value: "No", child: Text("No"))
   ];
-
-  String? yesNoOption;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +52,12 @@ class _MealPageState extends State<MealPage> {
                   YesNoCard(
                     onPress: () {
                       setState(() {
-                        yesNoOption = "Yes";
+                        yesNoOption = MealCardOption.Yes;
+                        salary.hasMealCard = MealCardOption.Yes;
+                        salary.mealAmount = mealCardValue;
                       });
                     },
-                    color: yesNoOption == "Yes"
+                    color: yesNoOption == MealCardOption.Yes
                         ? selectedCardColor
                         : standardCardColor,
                     cardChild: const Center(
@@ -66,10 +73,12 @@ class _MealPageState extends State<MealPage> {
                   YesNoCard(
                     onPress: () {
                       setState(() {
-                        yesNoOption = "No";
+                        yesNoOption = MealCardOption.No;
+                        salary.hasMealCard = MealCardOption.No;
+                        salary.mealAmount = 0;
                       });
                     },
-                    color: yesNoOption == "No"
+                    color: yesNoOption == MealCardOption.No
                         ? selectedCardColor
                         : standardCardColor,
                     cardChild: const Center(
@@ -97,6 +106,7 @@ class _MealPageState extends State<MealPage> {
               onChanged: (double value) {
                 setState(() {
                   mealCardValue = value;
+                  salary.mealAmount = value;
                 });
               }),
           SizedBox(
@@ -104,8 +114,10 @@ class _MealPageState extends State<MealPage> {
             height: bottomContainerHeight,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const FiscalPage()));
+                if (salary.hasMealCard != null) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => FiscalPage()));
+                }
               },
               style: const ButtonStyle(
                 backgroundColor:

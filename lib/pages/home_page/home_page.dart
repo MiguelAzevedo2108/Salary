@@ -4,21 +4,29 @@ import 'package:salary/pages/meal_page/meal_page.dart';
 
 import '../../cards/card.dart';
 import '../../cards/card_content.dart';
+import '../../entities/salary.dart';
 
 const bottomContainerHeight = 80.0;
 const bottomContainerColor = Color(0xFFEB1555);
 const selectedCardColor = Color(0xFF1D1E33);
 const standardCardColor = Color(0xFF111328);
 
-enum Salary{
+enum SalaryType{
   BRUTO,
   LIQUIDO
 }
 
+Salary salary = Salary(isGross: false, isNet: false, salaryAmount: 0.00, mealAmount: 0.00);
+
+Salary getSalary() {
+  return salary;
+}
+
 class MyHomePage extends StatefulWidget {
+
   final String title;
 
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -26,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  Salary? salary;
+  SalaryType? salaryType;
   double salaryValue = 800;
 
   @override
@@ -44,32 +52,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: HCard(
                       onPress: (){
                         setState(() {
-                          salary = Salary.BRUTO;
+                          salaryType = SalaryType.BRUTO;
+                          salary.salaryAmount = salaryValue;
+                          salary.isGross = true;
+                          salary.isNet = false;
                         });
                       },
-                      color: salary == Salary.BRUTO
+                      color: salaryType == SalaryType.BRUTO
                           ? selectedCardColor
                           : standardCardColor,
-                      cardChild: CardContent(icon: FontAwesomeIcons.moneyCheckDollar, text: Salary.BRUTO.name),
+                      cardChild: CardContent(icon: FontAwesomeIcons.moneyCheckDollar, text: SalaryType.BRUTO.name),
                   ),
                 ),
                 Expanded(
                     child: HCard(
                       onPress: (){
                         setState(() {
-                          salary = Salary.LIQUIDO;
+                          salaryType = SalaryType.LIQUIDO;
+                          salary.salaryAmount = salaryValue;
+                          salary.isGross = false;
+                          salary.isNet = true;
                         });
                       },
-                      color: salary == Salary.LIQUIDO
+                      color: salaryType == SalaryType.LIQUIDO
                           ? selectedCardColor
                           : standardCardColor,
-                      cardChild: CardContent(icon: FontAwesomeIcons.filterCircleDollar, text: Salary.LIQUIDO.name),
+                      cardChild: CardContent(icon: FontAwesomeIcons.filterCircleDollar, text: SalaryType.LIQUIDO.name),
                     ),
                 ),
               ],
             ),
           Slider(
-              value: salaryValue,
+              value: 800,
               min: 500,
               max: 6000,
               divisions: 5500,
@@ -79,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onChanged: (double value){
                 setState(() {
                   salaryValue = value;
+                  salary.salaryAmount = value;
                 });
               }),
           SizedBox(
@@ -86,14 +101,16 @@ class _MyHomePageState extends State<MyHomePage> {
               height: bottomContainerHeight,
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push(
+                  if (salary.isNet || salary.isGross){
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) {
                             return const MealPage();
                           }
                       ),
-                  );
+                    );
+                  }
                 },
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll<Color>(bottomContainerColor),
@@ -113,3 +130,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
