@@ -42,6 +42,7 @@ class _ResultPageOneState extends State<ResultPageOne> {
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Salario Bruto", value: salary.salaryAmount.toStringAsFixed(1))),
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Salario Liquido", value: netSalaryCalculation(salary.salaryAmount).toStringAsFixed(1))),
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Subsidio Alimentaçao em Cartão", value: (salary.mealAmount * 22).toStringAsFixed(1))),
+          FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Taxa de Segurança Social", value: 11.toStringAsFixed(1))),
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Taxa de IRS", value: salary.taxPercentage.toStringAsFixed(1))),
           const SizedBox(height: 70),
           Container(
@@ -67,7 +68,7 @@ class _ResultPageOneState extends State<ResultPageOne> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                        "Irás receber ${netSalaryCalculation(salary.salaryAmount).toStringAsFixed(1)} na conta e ${(salary.mealAmount * 22).toStringAsFixed(1)} em cartão",
+                        "Irás receber ${(netSalaryCalculation(salary.salaryAmount) - salary.mealAmount*22).toStringAsFixed(1)} na conta e ${(salary.mealAmount * 22).toStringAsFixed(1)} em cartão",
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,

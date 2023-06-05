@@ -138,7 +138,7 @@ class _FiscalPageState extends State<FiscalPage> {
                       : standardCardColor,
                   cardChild: CardContent(
                     icon: FontAwesomeIcons.a,
-                    text: Fiscal.AZORES.name,
+                    text: "Açores",
                   ),
                 ),
               ),
@@ -157,7 +157,7 @@ class _FiscalPageState extends State<FiscalPage> {
                       : standardCardColor,
                   cardChild: CardContent(
                     icon: FontAwesomeIcons.c,
-                    text: Fiscal.CONTINENTE.name,
+                    text: "Continente",
                   ),
                 ),
               ),
