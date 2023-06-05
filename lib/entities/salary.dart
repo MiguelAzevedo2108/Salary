@@ -9,8 +9,8 @@ class Salary {
   double mealAmount;
   MealCardOption? hasMealCard;
   Fiscal? fiscal;
-  double? taxPercentage;
+  double taxPercentage;
 
-  Salary({required this.isGross, required this.isNet, required this.salaryAmount, this.hasMealCard, required this.mealAmount ,this.fiscal, this.taxPercentage});
+  Salary({required this.isGross, required this.isNet, required this.salaryAmount, this.hasMealCard, required this.mealAmount ,this.fiscal, required this.taxPercentage});
 
 }

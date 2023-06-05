@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class FinalCardContent extends StatelessWidget {
-  final double value;
+  final String value;
   final String text;
 
   const FinalCardContent({super.key, required this.text, required this.value});
@@ -21,11 +21,11 @@ class FinalCardContent extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 30),
+          padding: const EdgeInsets.only(left: 20),
           child: Text(
-            value.round().toString(),
+            value,
             style: const TextStyle(
-              fontSize: 30,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               color: Color(0xFF8488b2),
             ),

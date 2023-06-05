@@ -1,16 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salary/pages/result_page/result_Page.dart';
-
+import 'package:salary/pages/meal_page/meal_page.dart';
+import 'package:salary/pages/result_page/result_page_one.dart';
 
 import '../../cards/card.dart';
 import '../../cards/card_content.dart';
 import '../home_page/home_page.dart';
 
-enum Fiscal{
-  AZORES,
-  CONTINENTE
-}
+enum Fiscal { AZORES, CONTINENTE }
 
 Map<int, double> azoresTable = {
   798: 0.00,
@@ -85,21 +83,19 @@ Map<int, double> continenteTable = {
   26015: 43.80
 };
 
-double findNearestTax(Map<int, double> irsTable, int salary) {
-  if (irsTable.containsKey(salary)){
-    return irsTable[salary]! / 100;
-  }
-  else{
-    for(MapEntry<int, double> entry in irsTable.entries){
-      if (entry.key > salary){
-        return entry.key / 100;
-      }
+double findNearestTax(Map<int, double> irsTable, double salary) {
+  for (MapEntry<int, double> entry in irsTable.entries) {
+    if (irsTable.containsKey(salary)) {
+      return entry.value / 100;
     }
-    return irsTable.values.last / 100;
+    else if (entry.key > salary) {
+      return entry.value / 100;
+    }
   }
+  return irsTable.values.last / 100;
 }
 
-class FiscalPage extends StatefulWidget{
+class FiscalPage extends StatefulWidget {
   const FiscalPage({super.key});
 
   @override
@@ -107,34 +103,44 @@ class FiscalPage extends StatefulWidget{
 }
 
 class _FiscalPageState extends State<FiscalPage> {
-
   Fiscal? fiscal;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MealPage()),
+            ),
+        ),
+        backgroundColor: const Color(0xFF0A0E21),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             children: [
               Expanded(
-                  child: HCard(
-                    onPress: () {
-                      setState(() {
-                        fiscal = Fiscal.AZORES;
-                        salary.fiscal = Fiscal.AZORES;
-                        salary.taxPercentage = findNearestTax(azoresTable, 26016);
-                      });
-                    },
-                    color: fiscal == Fiscal.AZORES
-                          ? selectedCardColor
-                          : standardCardColor,
-                    cardChild: CardContent(
-                      icon: FontAwesomeIcons.a,
-                      text: Fiscal.AZORES.name,
-                    ),
+                child: HCard(
+                  onPress: () {
+                    setState(() {
+                      fiscal = Fiscal.AZORES;
+                      salary.fiscal = Fiscal.AZORES;
+                      salary.taxPercentage = findNearestTax(azoresTable, salary.salaryAmount) * 100;
+                    });
+                  },
+                  color: fiscal == Fiscal.AZORES
+                      ? selectedCardColor
+                      : standardCardColor,
+                  cardChild: CardContent(
+                    icon: FontAwesomeIcons.a,
+                    text: Fiscal.AZORES.name,
                   ),
+                ),
               ),
               Expanded(
                 child: HCard(
@@ -142,12 +148,13 @@ class _FiscalPageState extends State<FiscalPage> {
                     setState(() {
                       fiscal = Fiscal.CONTINENTE;
                       salary.fiscal = Fiscal.CONTINENTE;
-                      salary.taxPercentage = findNearestTax(continenteTable, 26016);
+                      salary.taxPercentage =
+                          findNearestTax(continenteTable, salary.salaryAmount) * 100;
                     });
                   },
                   color: fiscal == Fiscal.CONTINENTE
-                        ? selectedCardColor
-                        : standardCardColor,
+                      ? selectedCardColor
+                      : standardCardColor,
                   cardChild: CardContent(
                     icon: FontAwesomeIcons.c,
                     text: Fiscal.CONTINENTE.name,
@@ -161,12 +168,20 @@ class _FiscalPageState extends State<FiscalPage> {
             height: bottomContainerHeight,
             child: ElevatedButton(
               onPressed: () {
-                //printSalary();
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ResultPage()));
+                if (fiscal != null &&
+                    salary.hasMealCard == MealCardOption.Yes) {
+
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const ResultPageOne()));
+                }
+                else if (fiscal != null &&
+                    salary.hasMealCard == MealCardOption.No) {
+                  // TODO Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ResultPageTwo()));
+                }
               },
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(bottomContainerColor),
+                backgroundColor:
+                    MaterialStatePropertyAll<Color>(bottomContainerColor),
               ),
               child: const Text(
                 "Next",
@@ -183,12 +198,14 @@ class _FiscalPageState extends State<FiscalPage> {
     );
   }
 
-  void printSalary(){
-    print("Salary - ${salary.salaryAmount}\n"
+  void printSalary() {
+    if (kDebugMode) {
+      print("Salary - ${salary.salaryAmount}\n"
         "Net - ${salary.isNet}\n"
         "Gross - ${salary.isGross}\n"
         "MealCard - ${salary.hasMealCard}\n"
         "MealAllowence - ${salary.mealAmount}\n"
         "Tax percentage - ${salary.taxPercentage}");
+    }
   }
 }

@@ -16,7 +16,7 @@ enum SalaryType{
   LIQUIDO
 }
 
-Salary salary = Salary(isGross: false, isNet: false, salaryAmount: 0.00, mealAmount: 0.00);
+Salary salary = Salary(isGross: false, isNet: false, salaryAmount: 0.00, mealAmount: 0.00, taxPercentage: 0.00);
 
 Salary getSalary() {
   return salary;
@@ -26,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: const Color(0xFF0A0E21),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -101,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
               height: bottomContainerHeight,
               child: ElevatedButton(
                 onPressed: (){
-                  if (salary.isNet || salary.isGross){
-                    Navigator.push(
+                  if (salaryType != null){
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) {

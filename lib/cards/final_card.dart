@@ -1,20 +1,17 @@
-
-
 import 'package:flutter/cupertino.dart';
-
-import '../pages/home_page/home_page.dart';
 
 class FinalCard extends StatelessWidget {
   final Widget? cardChild;
+  final Color color;
 
-  FinalCard({this.cardChild});
+  const FinalCard({super.key, required this.color, this.cardChild});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 25, bottom: 20),
+      margin: const EdgeInsets.only(left: 10, bottom: 20),
       decoration: BoxDecoration(
-        color: standardCardColor,
+        color: color,
         borderRadius: BorderRadius.circular(20.0),
       ),
       height: 70.0,
