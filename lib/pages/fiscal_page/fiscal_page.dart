@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salary/cards/card.dart';
-import 'package:salary/cards/card_content.dart';
-import 'package:salary/entities/salary.dart';
+import 'package:salary/pages/result_page/result_Page.dart';
 
+
+import '../../cards/card.dart';
+import '../../cards/card_content.dart';
 import '../home_page/home_page.dart';
 
 enum Fiscal{
@@ -124,7 +125,6 @@ class _FiscalPageState extends State<FiscalPage> {
                         fiscal = Fiscal.AZORES;
                         salary.fiscal = Fiscal.AZORES;
                         salary.taxPercentage = findNearestTax(azoresTable, 26016);
-
                       });
                     },
                     color: fiscal == Fiscal.AZORES
@@ -162,8 +162,8 @@ class _FiscalPageState extends State<FiscalPage> {
             child: ElevatedButton(
               onPressed: () {
                 //printSalary();
-                /*Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MyHomePage(title: "salar")));*/
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ResultPage()));
               },
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(bottomContainerColor),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salary/cards/card.dart';
-import 'package:salary/cards/card_content.dart';
-import 'package:salary/cards/yes_no_card.dart';
 
+import '../../cards/card.dart';
+import '../../cards/card_content.dart';
+import '../../cards/yes_no_card.dart';
 import '../fiscal_page/fiscal_page.dart';
 import '../home_page/home_page.dart';
 
