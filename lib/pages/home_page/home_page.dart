@@ -35,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   SalaryType? salaryType;
-  double salaryValue = 800;
+  double salaryValue = 1956;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           Slider(
-              value: 800,
+              value: salaryValue,
               min: 500,
               max: 6000,
               divisions: 5500,

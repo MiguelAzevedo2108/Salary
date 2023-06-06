@@ -5,11 +5,11 @@ import '../../cards/final_card_content.dart';
 import '../fiscal_page/fiscal_page.dart';
 import '../home_page/home_page.dart';
 
-class ResultPageOne extends StatefulWidget {
-  const ResultPageOne({super.key});
+class ResultPageTwo extends StatefulWidget {
+  const ResultPageTwo({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ResultPageOneState();
+  State<StatefulWidget> createState() => _ResultPageTwoState();
 }
 
 double netSalaryCalculation(double grossSalaryAmount){
@@ -18,7 +18,7 @@ double netSalaryCalculation(double grossSalaryAmount){
   return grossSalaryAmount - taxValue - ssValue;
 }
 
-class _ResultPageOneState extends State<ResultPageOne> {
+class _ResultPageTwoState extends State<ResultPageTwo> {
 
   final double finalSalaryAmount = salary.salaryAmount;
 
@@ -26,27 +26,27 @@ class _ResultPageOneState extends State<ResultPageOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-            onPressed: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const FiscalPage()),
-            ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const FiscalPage()),
           ),
-          backgroundColor: const Color(0xFF0A0E21),
         ),
+        backgroundColor: const Color(0xFF0A0E21),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Salario Bruto", value: salary.salaryAmount.toStringAsFixed(1))),
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Salario Liquido", value: netSalaryCalculation(salary.salaryAmount).toStringAsFixed(1))),
-          FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Subsidio Alimentaçao em Cartão", value: (salary.mealAmount * 22).toStringAsFixed(1))),
+          FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Subsidio Alimentaçao", value: (salary.mealAmount * 22).toStringAsFixed(1))),
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Taxa de Segurança Social", value: 11.toStringAsFixed(1))),
           FinalCard(color: standardCardColor, cardChild: FinalCardContent(text: "Taxa de IRS", value: salary.taxPercentage.toStringAsFixed(1))),
           const SizedBox(height: 70),
           Container(
-            margin: const EdgeInsets.only(left: 15, bottom: 20),
+            margin: const EdgeInsets.only(left: 25, bottom: 20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
@@ -68,7 +68,7 @@ class _ResultPageOneState extends State<ResultPageOne> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                        "Irás receber ${(netSalaryCalculation(salary.salaryAmount) - (salary.mealAmount * 22)).toStringAsFixed(1)} na conta e ${(salary.mealAmount * 22).toStringAsFixed(1)} em cartão",
+                      "Irás receber ${(netSalaryCalculation(salary.salaryAmount).toStringAsFixed(1))} na conta",
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
