@@ -6,6 +6,8 @@ import '../../cards/card_content.dart';
 import '../../cards/yes_no_card.dart';
 import '../fiscal_page/fiscal_page.dart';
 import '../home_page/home_page.dart';
+import '../result_page/result_page_liquid.dart';
+import '../result_page/result_page_liquid_two.dart';
 
 enum MealCardOption{
   Yes,
@@ -121,10 +123,20 @@ class _MealPageState extends State<MealPage> {
             height: bottomContainerHeight,
             child: ElevatedButton(
               onPressed: () {
-                if (yesNoOption != null) {
+                if (yesNoOption != null && salary.isGross) {
                   salary.mealAmount = mealValue;
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const FiscalPage()));
+                }
+                else if (salary.isNet && yesNoOption == MealCardOption.Yes){
+                  salary.mealAmount = mealValue;
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const ResultPageLiquid()));
+                }
+                else if (salary.isNet && yesNoOption == MealCardOption.No){
+                  salary.mealAmount = mealValue;
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const ResultPageLiquidTwo()));
                 }
               },
               style: const ButtonStyle(

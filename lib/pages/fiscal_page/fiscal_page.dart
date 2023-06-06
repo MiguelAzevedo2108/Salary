@@ -131,13 +131,13 @@ class _FiscalPageState extends State<FiscalPage> {
                     setState(() {
                       fiscal = Fiscal.AZORES;
                       salary.fiscal = Fiscal.AZORES;
-                      if (salary.hasMealCard == MealCardOption.Yes) {
-                        salary.taxPercentage =
+                        if (salary.hasMealCard == MealCardOption.Yes) {
+                          salary.taxPercentage =
                             findNearestTax(azoresTable, (salary.salaryAmount - salary.mealAmount * 22)) * 100;
-                      } else {
-                        salary.taxPercentage =
-                            findNearestTax(continenteTable, salary.salaryAmount) * 100;
-                      }
+                        } else {
+                          salary.taxPercentage =
+                            findNearestTax(azoresTable, salary.salaryAmount) * 100;
+                        }
                     });
                   },
                   color: fiscal == Fiscal.AZORES
@@ -155,10 +155,10 @@ class _FiscalPageState extends State<FiscalPage> {
                     setState(() {
                       fiscal = Fiscal.CONTINENTE;
                       salary.fiscal = Fiscal.CONTINENTE;
-                      if (salary.hasMealCard == MealCardOption.Yes) {
+                       if (salary.hasMealCard == MealCardOption.Yes) {
                         salary.taxPercentage =
                             findNearestTax(continenteTable, (salary.salaryAmount - salary.mealAmount * 22)) * 100;
-                      } else {
+                       } else {
                         salary.taxPercentage =
                             findNearestTax(continenteTable, salary.salaryAmount) * 100;
                       }
@@ -180,7 +180,7 @@ class _FiscalPageState extends State<FiscalPage> {
             height: bottomContainerHeight,
             child: ElevatedButton(
               onPressed: () {
-                if (fiscal != null &&
+                 if (fiscal != null &&
                     salary.hasMealCard == MealCardOption.Yes) {
 
                   Navigator.of(context).pushReplacement(
