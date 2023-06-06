@@ -7,6 +7,7 @@ import 'package:salary/pages/result_page/result_page_one.dart';
 import '../../cards/card.dart';
 import '../../cards/card_content.dart';
 import '../home_page/home_page.dart';
+import '../result_page/result_page_two.dart';
 
 enum Fiscal { AZORES, CONTINENTE }
 
@@ -130,7 +131,13 @@ class _FiscalPageState extends State<FiscalPage> {
                     setState(() {
                       fiscal = Fiscal.AZORES;
                       salary.fiscal = Fiscal.AZORES;
-                      salary.taxPercentage = findNearestTax(azoresTable, salary.salaryAmount) * 100;
+                      if (salary.hasMealCard == MealCardOption.Yes) {
+                        salary.taxPercentage =
+                            findNearestTax(azoresTable, (salary.salaryAmount - salary.mealAmount * 22)) * 100;
+                      } else {
+                        salary.taxPercentage =
+                            findNearestTax(continenteTable, salary.salaryAmount) * 100;
+                      }
                     });
                   },
                   color: fiscal == Fiscal.AZORES
@@ -148,8 +155,13 @@ class _FiscalPageState extends State<FiscalPage> {
                     setState(() {
                       fiscal = Fiscal.CONTINENTE;
                       salary.fiscal = Fiscal.CONTINENTE;
-                      salary.taxPercentage =
-                          findNearestTax(continenteTable, salary.salaryAmount) * 100;
+                      if (salary.hasMealCard == MealCardOption.Yes) {
+                        salary.taxPercentage =
+                            findNearestTax(continenteTable, (salary.salaryAmount - salary.mealAmount * 22)) * 100;
+                      } else {
+                        salary.taxPercentage =
+                            findNearestTax(continenteTable, salary.salaryAmount) * 100;
+                      }
                     });
                   },
                   color: fiscal == Fiscal.CONTINENTE
@@ -176,7 +188,7 @@ class _FiscalPageState extends State<FiscalPage> {
                 }
                 else if (fiscal != null &&
                     salary.hasMealCard == MealCardOption.No) {
-                  // TODO Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ResultPageTwo()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ResultPageTwo()));
                 }
               },
               style: const ButtonStyle(
